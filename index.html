@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BharatVerse – Journey Through Time</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#C9A84C;--gold-lt:#F0D080;--gold-dk:#7A5A10;
+  --crimson:#8B1A1A;--crimson-lt:#C0392B;
+  --midnight:#060D1A;--deep:#0A1628;
+  --earth:#3D2B1F;--amber:#D4891A;
+  --ivory:#F5F0E8;--muted:#A89070;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Lato',sans-serif;background:var(--midnight);color:var(--ivory);overflow-x:hidden;}
+
+/* ── CANVAS BG ── */
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.45;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(6,13,26,.92);border-bottom:1px solid rgba(201,168,76,.18);
+  backdrop-filter:blur(10px);transition:background .3s;
+}
+.nav-logo{
+  font-family:'Cinzel Decorative',serif;font-size:1.2rem;
+  color:var(--gold);text-decoration:none;letter-spacing:.06em;
+}
+.nav-logo span{color:var(--crimson-lt);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;
+  color:var(--ivory);text-decoration:none;text-transform:uppercase;
+  opacity:.8;transition:color .2s,opacity .2s;
+}
+.nav-links a:hover{color:var(--gold);opacity:1;}
+.nav-cta{
+  background:linear-gradient(135deg,var(--gold-dk),var(--gold));
+  color:var(--midnight)!important;padding:.45rem 1.4rem;border-radius:2px;
+  font-weight:700!important;opacity:1!important;letter-spacing:.1em!important;
+  transition:transform .2s,box-shadow .2s!important;
+}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(201,168,76,.4);}
+@media(max-width:768px){.nav-links{display:none;}}
+
+/* ── HERO ── */
+.hero{
+  position:relative;z-index:1;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:7rem 2rem 4rem;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,76,.07) 0%,transparent 70%);
+  top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  border:1px solid rgba(201,168,76,.4);border-radius:2px;
+  padding:.28rem 1rem;font-family:'Cinzel',serif;font-size:.68rem;
+  letter-spacing:.25em;color:var(--gold);text-transform:uppercase;
+  margin-bottom:1.5rem;animation:fadeUp .8s ease both;
+}
+.hero-badge::before,.hero-badge::after{content:'◆';font-size:.45em;opacity:.6;}
+.hero-title{
+  font-family:'Cinzel Decorative',serif;
+  font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1.0;
+  color:var(--gold-lt);text-shadow:0 0 80px rgba(201,168,76,.3);
+  margin-bottom:.3rem;animation:fadeUp .9s ease .15s both;
+}
+.hero-title span{color:var(--crimson-lt);}
+.hero-sub{
+  font-family:'Cinzel',serif;font-size:clamp(1rem,2.5vw,1.6rem);
+  letter-spacing:.2em;text-transform:uppercase;color:var(--crimson-lt);
+  margin-bottom:1.2rem;animation:fadeUp .9s ease .3s both;
+}
+.hero-desc{
+  max-width:560px;font-size:1.05rem;line-height:1.85;
+  color:rgba(245,240,232,.68);margin-bottom:2.5rem;
+  animation:fadeUp .9s ease .45s both;
+}
+.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .9s ease .6s both;}
+
+/* ── HERO IMAGE ── */
+.hero-image-wrap{
+  position:relative;z-index:1;margin-top:3rem;margin-bottom:1rem;
+  animation:fadeUp 1s ease .75s both;
+}
+.hero-image-wrap img{
+  width:min(900px,92vw);border-radius:12px;
+  box-shadow:0 0 80px rgba(201,168,76,.18),0 30px 80px rgba(0,0,0,.6);
+  border:1px solid rgba(201,168,76,.2);
+}
+
+/* ── BUTTONS ── */
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold-dk),var(--gold),var(--amber));
+  color:var(--midnight);padding:.9rem 2.4rem;font-family:'Cinzel',serif;
+  font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  border:none;cursor:pointer;border-radius:2px;text-decoration:none;
+  display:inline-block;transition:transform .25s,box-shadow .25s;
+  box-shadow:0 0 0 1px rgba(201,168,76,.5),0 8px 28px rgba(201,168,76,.22);
+  position:relative;overflow:hidden;
+}
+.btn-gold::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);
+  transition:left .4s;
+}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 0 0 1px var(--gold),0 16px 38px rgba(201,168,76,.38);}
+.btn-gold:hover::after{left:100%;}
+.btn-outline{
+  border:1px solid rgba(201,168,76,.4);color:var(--gold-lt);
+  padding:.9rem 2.4rem;font-family:'Cinzel',serif;font-size:.82rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(201,168,76,.05);cursor:pointer;border-radius:2px;
+  text-decoration:none;display:inline-block;
+  transition:border-color .25s,background .25s,transform .25s;backdrop-filter:blur(4px);
+}
+.btn-outline:hover{border-color:var(--gold);background:rgba(201,168,76,.12);transform:translateY(-3px);}
+
+/* ── SECTION BASE ── */
+section{position:relative;z-index:1;padding:6rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
+.section-tag{
+  font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.35em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:.7rem;display:block;
+}
+.section-title{
+  font-family:'Cinzel Decorative',serif;font-size:clamp(1.7rem,4vw,2.8rem);
+  color:var(--gold-lt);line-height:1.2;margin-bottom:1rem;
+}
+.section-body{color:rgba(245,240,232,.62);line-height:1.88;max-width:620px;}
+
+/* ── DIVIDER ── */
+.divider{
+  display:flex;align-items:center;gap:1rem;padding:0 4rem;opacity:.3;
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;}
+.divider::before{background:linear-gradient(to right,transparent,var(--gold));}
+.divider::after{background:linear-gradient(to left,transparent,var(--gold));}
+.divider span{font-size:.6rem;letter-spacing:.3em;color:var(--gold);font-family:'Cinzel',serif;}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:rgba(201,168,76,.06);border-top:1px solid rgba(201,168,76,.15);
+  border-bottom:1px solid rgba(201,168,76,.15);padding:1.8rem 2rem;
+  position:relative;z-index:1;
+}
+.stats-inner{
+  max-width:900px;margin:0 auto;display:flex;justify-content:space-around;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.stat{text-align:center;}
+.stat-num{
+  font-family:'Cinzel Decorative',serif;font-size:2.2rem;color:var(--gold);
+  display:block;line-height:1;
+}
+.stat-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;margin-top:.4rem;display:block;}
+
+/* ── ERAS ── */
+.eras-section{background:linear-gradient(to bottom,var(--midnight),#0D1F10,var(--midnight));}
+.eras-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:1.4rem;margin-top:3rem;}
+.era-card{
+  border:1px solid rgba(201,168,76,.14);border-radius:4px;padding:1.6rem;
+  background:rgba(255,255,255,.02);transition:border-color .3s,transform .3s,background .3s;
+  position:relative;overflow:hidden;cursor:default;
+}
+.era-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.era-card:hover{border-color:rgba(201,168,76,.4);background:rgba(255,255,255,.04);transform:translateY(-5px);}
+.e1::before{background:linear-gradient(to right,#7A5A10,#C9A84C);}
+.e2::before{background:linear-gradient(to right,#1A4A5A,#2D8A9A);}
+.e3::before{background:linear-gradient(to right,#2D5A27,#5A9A50);}
+.e4::before{background:linear-gradient(to right,#6B3A1F,#C0611A);}
+.e5::before{background:linear-gradient(to right,#3A1A5A,#7A3AAA);}
+.e6::before{background:linear-gradient(to right,#8B1A1A,#CC3333);}
+.e7::before{background:linear-gradient(to right,#1A3A6B,#3A7ACC);}
+.era-num{font-family:'Cinzel Decorative',serif;font-size:.6rem;letter-spacing:.2em;color:var(--muted);margin-bottom:.4rem;}
+.era-name{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold-lt);margin-bottom:.22rem;}
+.era-period{font-size:.75rem;color:var(--muted);margin-bottom:.7rem;letter-spacing:.04em;}
+.era-desc{font-size:.82rem;line-height:1.65;color:rgba(245,240,232,.52);}
+.era-badge{
+  display:inline-block;margin-top:.7rem;font-family:'Cinzel',serif;
+  font-size:.6rem;letter-spacing:.15em;color:var(--gold-dk);
+  border:1px solid rgba(201,168,76,.2);padding:.18rem .55rem;border-radius:2px;
+}
+
+/* ── HOW TO PLAY ── */
+.how-section{background:linear-gradient(to bottom,var(--midnight),#1A0D08,var(--midnight));}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-top:3rem;}
+.step{text-align:center;position:relative;}
+.step:not(:last-child)::after{
+  content:'→';position:absolute;right:-1rem;top:2rem;
+  color:var(--gold-dk);font-size:1.1rem;opacity:.5;
+}
+.step-icon{
+  width:60px;height:60px;border-radius:50%;border:1px solid rgba(201,168,76,.3);
+  display:flex;align-items:center;justify-content:center;margin:0 auto .9rem;
+  font-size:1.4rem;background:rgba(201,168,76,.05);
+}
+.step-num{font-family:'Cinzel Decorative',serif;font-size:.58rem;letter-spacing:.2em;color:var(--gold-dk);display:block;margin-bottom:.35rem;}
+.step-title{font-family:'Cinzel',serif;font-size:.88rem;color:var(--gold-lt);margin-bottom:.35rem;}
+.step-desc{font-size:.8rem;color:rgba(245,240,232,.52);line-height:1.6;}
+
+/* ── CARDS SECTION ── */
+.cards-section{background:var(--midnight);}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:1.2rem;margin-top:3rem;}
+.kcard{
+  border:1px solid rgba(201,168,76,.18);border-radius:4px;padding:1.2rem;
+  background:linear-gradient(135deg,rgba(61,43,31,.4),rgba(10,22,40,.6));
+  transition:transform .3s,border-color .3s;cursor:pointer;
+}
+.kcard:hover{transform:scale(1.03) rotate(-.5deg);border-color:rgba(201,168,76,.5);}
+.kcard-era{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--gold-dk);text-transform:uppercase;margin-bottom:.45rem;}
+.kcard-q{font-family:'Cinzel',serif;font-size:.8rem;color:var(--gold-lt);line-height:1.5;margin-bottom:.7rem;}
+.kcard-opts{display:flex;flex-direction:column;gap:.28rem;}
+.kcard-opt{font-size:.72rem;color:rgba(245,240,232,.48);padding:.18rem .45rem;border-radius:2px;border:1px solid transparent;}
+.kcard-opt.ok{color:#5DBE8A;border-color:rgba(93,190,138,.3);background:rgba(93,190,138,.07);}
+.kcard-qr{
+  display:flex;align-items:center;gap:.45rem;margin-top:.7rem;padding-top:.7rem;
+  border-top:1px solid rgba(201,168,76,.1);font-size:.65rem;color:var(--muted);
+  font-family:'Cinzel',serif;letter-spacing:.08em;
+}
+
+/* ── AVATARS ── */
+.avatars-section{background:linear-gradient(to bottom,var(--midnight),#0D0A1A,var(--midnight));}
+.avatars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:1.4rem;margin-top:3rem;}
+.avatar-card{
+  padding:1.8rem 1rem;border:1px solid rgba(201,168,76,.14);border-radius:4px;
+  text-align:center;transition:transform .3s,border-color .3s,background .3s;
+  background:rgba(255,255,255,.02);
+}
+.avatar-card:hover{transform:translateY(-6px);border-color:rgba(201,168,76,.4);background:rgba(201,168,76,.04);}
+.avatar-icon{font-size:2.2rem;display:block;margin-bottom:.7rem;}
+.avatar-name{font-family:'Cinzel',serif;font-size:.88rem;color:var(--gold-lt);margin-bottom:.3rem;}
+.avatar-bonus{font-size:.75rem;color:var(--muted);line-height:1.55;}
+
+/* ── SHOP ── */
+.shop-section{background:linear-gradient(135deg,#0A1628 0%,#1A0D08 50%,#0A1628 100%);}
+.product-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:3rem;}
+@media(max-width:768px){.product-grid{grid-template-columns:1fr;}}
+.product-frame{
+  border:1px solid rgba(201,168,76,.28);border-radius:8px;
+  background:linear-gradient(135deg,#1A110A,#0A1628);
+  display:flex;align-items:center;justify-content:center;
+  min-height:360px;position:relative;overflow:hidden;
+}
+.product-frame::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 30% 30%,rgba(201,168,76,.07),transparent 60%);
+}
+.product-placeholder{
+  font-family:'Cinzel Decorative',serif;font-size:1.1rem;
+  color:var(--gold-dk);text-align:center;padding:2rem;opacity:.8;line-height:1.7;
+}
+.price{font-family:'Cinzel Decorative',serif;font-size:2.4rem;color:var(--gold);margin:1rem 0;}
+.price small{font-size:.9rem;color:var(--muted);font-family:'Lato',sans-serif;font-weight:300;}
+.features{list-style:none;margin:1.4rem 0;display:flex;flex-direction:column;gap:.55rem;}
+.features li{font-size:.86rem;color:rgba(245,240,232,.62);display:flex;align-items:center;gap:.55rem;}
+.features li::before{content:'◆';color:var(--gold-dk);font-size:.45rem;flex-shrink:0;}
+
+/* ── SCHOOLS ── */
+.schools-section{background:linear-gradient(135deg,#060D1A,#0D1F10,#060D1A);text-align:center;}
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin:3rem 0;}
+@media(max-width:600px){.benefits-grid{grid-template-columns:1fr;}}
+.benefit-box{padding:1.4rem;border:1px solid rgba(201,168,76,.12);border-radius:4px;background:rgba(255,255,255,.02);}
+.benefit-icon{font-size:1.7rem;display:block;margin-bottom:.7rem;}
+.benefit-title{font-family:'Cinzel',serif;font-size:.8rem;color:var(--gold-lt);margin-bottom:.35rem;}
+.benefit-desc{font-size:.76rem;color:rgba(245,240,232,.48);line-height:1.6;}
+
+/* ── QR SECTION ── */
+.qr-demo{
+  background:rgba(255,255,255,.025);border:1px solid rgba(201,168,76,.14);
+  border-radius:4px;padding:1.8rem;margin-top:3rem;
+  display:grid;grid-template-columns:auto 1fr;gap:1.8rem;align-items:center;
+}
+@media(max-width:600px){.qr-demo{grid-template-columns:1fr;}}
+.qr-box{
+  width:76px;height:76px;background:white;border-radius:4px;
+  display:grid;grid-template-columns:repeat(7,1fr);
+  grid-template-rows:repeat(7,1fr);gap:1px;padding:5px;flex-shrink:0;
+}
+.qr-box div{background:#000;border-radius:1px;}
+.qr-text h3{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold-lt);margin-bottom:.45rem;}
+.qr-text p{font-size:.83rem;color:rgba(245,240,232,.58);line-height:1.72;}
+
+/* ── FOOTER ── */
+footer{
+  position:relative;z-index:1;border-top:1px solid rgba(201,168,76,.14);
+  padding:2.8rem 3rem;background:#040810;
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;display:flex;
+  justify-content:space-between;align-items:flex-start;gap:2rem;flex-wrap:wrap;
+}
+.footer-brand{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold);margin-bottom:.4rem;}
+.footer-brand span{color:var(--crimson-lt);}
+.footer-tagline{font-size:.76rem;color:var(--muted);max-width:210px;line-height:1.6;}
+.footer-links h4{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;color:var(--gold-dk);text-transform:uppercase;margin-bottom:.7rem;}
+.footer-links ul{list-style:none;}
+.footer-links li{font-size:.8rem;color:var(--muted);margin-bottom:.38rem;cursor:pointer;transition:color .2s;}
+.footer-links li:hover{color:var(--gold-lt);}
+.footer-bottom{
+  max-width:1100px;margin:1.8rem auto 0;padding-top:1.4rem;
+  border-top:1px solid rgba(201,168,76,.08);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.footer-bottom p{font-size:.72rem;color:rgba(168,144,112,.5);font-family:'Cinzel',serif;letter-spacing:.05em;}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){
+  section{padding:4rem 1.5rem;}
+  footer{padding:2rem 1.5rem;}
+  .step:not(:last-child)::after{display:none;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Bharat<span>Verse</span></a>
+  <ul class="nav-links">
+    <li><a href="#eras">The Game</a></li>
+    <li><a href="#how">How to Play</a></li>
+    <li><a href="#cards">Knowledge Cards</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#schools">For Schools</a></li>
+    <li><a href="#shop" class="nav-cta">Buy Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">75,000 BCE &rarr; India 2050</div>
+  <h1 class="hero-title">Bharat<span>Verse</span></h1>
+  <div class="hero-sub">Journey Through Time</div>
+  <p class="hero-desc">A 60-minute competitive strategy board game where 2–6 players travel across 7 eras of Indian civilization — from the earliest humans to a vision of India 2050. Learn history. Build your legacy. Shape the nation.</p>
+  <div class="hero-ctas">
+    <a href="#shop" class="btn-gold">Get Your Copy &rarr;</a>
+    <a href="#how" class="btn-outline">How to Play</a>
+  </div>
+
+  <!-- Board image hero -->
+  <div class="hero-image-wrap reveal">
+    <img src="BharatVerse_Hero_Midnight_Indigo.png"
+         alt="BharatVerse Board Game"
+         onerror="this.style.display='none';document.getElementById('board-fallback').style.display='flex'">
+    <div id="board-fallback" style="display:none;min-height:420px;border:1px solid rgba(201,168,76,.25);border-radius:12px;background:linear-gradient(135deg,#1A110A,#0A1628);align-items:center;justify-content:center;">
+      <div style="font-family:'Cinzel Decorative',serif;color:var(--gold-dk);text-align:center;padding:3rem;line-height:2;opacity:.7;">
+        BharatVerse<br>Board Game<br><span style="font-size:.7rem;font-family:'Lato';color:var(--muted);">Place your hero image here</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat reveal"><span class="stat-num">7</span><span class="stat-label">Historical Eras</span></div>
+    <div class="stat reveal"><span class="stat-num">100</span><span class="stat-label">Board Spaces</span></div>
+    <div class="stat reveal"><span class="stat-num">280+</span><span class="stat-label">Game Cards</span></div>
+    <div class="stat reveal"><span class="stat-num">60</span><span class="stat-label">Minutes</span></div>
+    <div class="stat reveal"><span class="stat-num">2–6</span><span class="stat-label">Players</span></div>
+    <div class="stat reveal"><span class="stat-num">13+</span><span class="stat-label">Age</span></div>
+  </div>
+</div>
+
+<div class="divider"><span>◆ ◆ ◆</span></div>
+
+<!-- ERAS -->
+<section class="eras-section" id="eras">
+  <div class="container">
+    <span class="section-tag reveal">Seven Eras of India</span>
+    <h2 class="section-title reveal">100 Spaces. 7 Civilizations.<br>One Destiny.</h2>
+    <p class="section-body reveal">Traverse the entire sweep of Indian history — from early human settlements to the digital age — making decisions, earning knowledge, and building a civilization worthy of 2050.</p>
+
+    <div class="eras-grid">
+      <div class="era-card e1 reveal">
+        <div class="era-num">Era I</div>
+        <div class="era-name">Early Humans</div>
+        <div class="era-period">75,000 BCE – 3,000 BCE</div>
+        <div class="era-desc">The first footprints on the subcontinent. Cave paintings, stone tools, and the dawn of settlement along ancient river valleys.</div>
+        <span class="era-badge">6 Spaces</span>
+      </div>
+      <div class="era-card e2 reveal">
+        <div class="era-num">Era II</div>
+        <div class="era-name">Indus &amp; Early Vedic</div>
+        <div class="era-period">3,000 BCE – 600 BCE</div>
+        <div class="era-desc">Planned cities of Harappa and Mohenjo-daro, sacred Vedic texts, and the birth of a civilization's spiritual soul.</div>
+        <span class="era-badge">12 Spaces</span>
+      </div>
+      <div class="era-card e3 reveal">
+        <div class="era-num">Era III</div>
+        <div class="era-name">Maurya to 500 CE</div>
+        <div class="era-period">600 BCE – 500 CE</div>
+        <div class="era-desc">Ashoka's empire, the Gupta golden age, and India's intellectual blossoming across philosophy, mathematics, and medicine.</div>
+        <span class="era-badge">15 Spaces</span>
+      </div>
+      <div class="era-card e4 reveal">
+        <div class="era-num">Era IV ★</div>
+        <div class="era-name">Temple, Trade &amp; Kingdoms</div>
+        <div class="era-period">500 CE – 1300 CE</div>
+        <div class="era-desc">Chola navies, Nalanda's scholars, the Silk Route, and breathtaking temple architecture. The Hero Era — 22 spaces, 50 Knowledge Cards.</div>
+        <span class="era-badge">22 Spaces</span>
+      </div>
+      <div class="era-card e5 reveal">
+        <div class="era-num">Era V</div>
+        <div class="era-name">Sultanates, Mughals &amp; Marathas</div>
+        <div class="era-period">1300 CE – 1700 CE</div>
+        <div class="era-desc">Qutub Minar, the Taj Mahal, Akbar's pluralism, and Shivaji's defiant resistance against imperial expansion.</div>
+        <span class="era-badge">17 Spaces</span>
+      </div>
+      <div class="era-card e6 reveal">
+        <div class="era-num">Era VI</div>
+        <div class="era-name">Colonial India</div>
+        <div class="era-period">1700 CE – 1947 CE</div>
+        <div class="era-desc">The struggle for independence — from the first sparks of revolt to Gandhi's salt march and freedom at midnight.</div>
+        <span class="era-badge">15 Spaces</span>
+      </div>
+      <div class="era-card e7 reveal">
+        <div class="era-num">Era VII</div>
+        <div class="era-name">Modern India &rarr; 2050</div>
+        <div class="era-period">1947 CE – 2050</div>
+        <div class="era-desc">From independence to a digital superpower. Design your vision of India 2050 and compete for the nation's future.</div>
+        <span class="era-badge">13 Spaces</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>◆ ◆ ◆</span></div>
+
+<!-- HOW TO PLAY -->
+<section class="how-section" id="how">
+  <div class="container">
+    <span class="section-tag reveal">Gameplay</span>
+    <h2 class="section-title reveal">From First Roll to 2050</h2>
+    <p class="section-body reveal">Simple to learn. Deep to master. A 60-minute journey through 75,000 years of history for 2 to 6 players.</p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-icon">🎭</div>
+        <span class="step-num">Step 01</span>
+        <div class="step-title">Choose Avatar</div>
+        <div class="step-desc">Pick Wanderer, Toolmaker, Settler, or Thinker — each with unique civilization bonuses.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-icon">🎲</div>
+        <span class="step-num">Step 02</span>
+        <div class="step-title">Roll &amp; Move</div>
+        <div class="step-desc">Travel the spiral board from Era 1 outward toward the center — India 2050.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-icon">📜</div>
+        <span class="step-num">Step 03</span>
+        <div class="step-title">Draw Cards</div>
+        <div class="step-desc">Land on Knowledge, Challenge, Ethics, Trade, Risk, or Event spaces and draw.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-icon">⚗️</div>
+        <span class="step-num">Step 04</span>
+        <div class="step-title">Build Civilization</div>
+        <div class="step-desc">Convert resources — Grain, Gold, Stone, Iron — into Forts, Temples, Universities &amp; Markets.</div>
+      </div>
+      <div class="step reveal">
+        <div class="step-icon">🏆</div>
+        <span class="step-num">Step 05</span>
+        <div class="step-title">Reach 2050</div>
+        <div class="step-desc">Meet the minimum scores across all tracks to qualify for the India 2050 finale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>◆ ◆ ◆</span></div>
+
+<!-- KNOWLEDGE CARDS -->
+<section class="cards-section" id="cards">
+  <div class="container">
+    <span class="section-tag reveal">Knowledge System</span>
+    <h2 class="section-title reveal">Every Card, a Window to History</h2>
+    <p class="section-body reveal">50 Era IV knowledge cards. Each with a question, explanation, and a QR code linking to a full multimedia learning page — maps, timelines, videos, and more.</p>
+    <div class="cards-grid">
+      <div class="kcard reveal">
+        <div class="kcard-era">Era IV · Universities</div>
+        <div class="kcard-q">Nalanda University was located in which present-day state?</div>
+        <div class="kcard-opts">
+          <div class="kcard-opt">A. Uttar Pradesh</div>
+          <div class="kcard-opt ok">B. Bihar ✓</div>
+          <div class="kcard-opt">C. West Bengal</div>
+          <div class="kcard-opt">D. Odisha</div>
+        </div>
+        <div class="kcard-qr">📱 Scan QR · Nalanda University</div>
+      </div>
+      <div class="kcard reveal">
+        <div class="kcard-era">Era IV · Naval Power</div>
+        <div class="kcard-q">The Cholas became powerful mainly due to control over:</div>
+        <div class="kcard-opts">
+          <div class="kcard-opt">A. Mountain passes</div>
+          <div class="kcard-opt">B. River valleys</div>
+          <div class="kcard-opt ok">C. Sea routes ✓</div>
+          <div class="kcard-opt">D. Desert routes</div>
+        </div>
+        <div class="kcard-qr">📱 Scan QR · Chola Navy</div>
+      </div>
+      <div class="kcard reveal">
+        <div class="kcard-era">Era IV · Architecture</div>
+        <div class="kcard-q">Kailasa Temple at Ellora was carved from a single rock by:</div>
+        <div class="kcard-opts">
+          <div class="kcard-opt">A. Cholas</div>
+          <div class="kcard-opt ok">B. Rashtrakutas ✓</div>
+          <div class="kcard-opt">C. Palas</div>
+          <div class="kcard-opt">D. Tomaras</div>
+        </div>
+        <div class="kcard-qr">📱 Scan QR · Ellora Caves</div>
+      </div>
+      <div class="kcard reveal">
+        <div class="kcard-era">Era IV · Science</div>
+        <div class="kcard-q">Which mathematical concept from India spread globally through trade?</div>
+        <div class="kcard-opts">
+          <div class="kcard-opt">A. Fractions</div>
+          <div class="kcard-opt ok">B. Zero &amp; Decimal System ✓</div>
+          <div class="kcard-opt">C. Algebra</div>
+          <div class="kcard-opt">D. Geometry</div>
+        </div>
+        <div class="kcard-qr">📱 Scan QR · History of Zero</div>
+      </div>
+    </div>
+
+    <div class="qr-demo reveal">
+      <div class="qr-box" id="qrbox"></div>
+      <div class="qr-text">
+        <h3>Scan. Learn. Explore.</h3>
+        <p>Every knowledge card includes a QR code linking to a full learning page — complete with a summary, interactive map, historical timeline, key facts, and a short video. Turn every card draw into a 2-minute deep dive into Indian history.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>◆ ◆ ◆</span></div>
+
+<!-- AVATARS -->
+<section class="avatars-section">
+  <div class="container" style="text-align:center;">
+    <span class="section-tag reveal">Player Avatars</span>
+    <h2 class="section-title reveal">Choose Your Civilization Path</h2>
+    <div class="avatars-grid" style="max-width:850px;margin:0 auto;">
+      <div class="avatar-card reveal"><span class="avatar-icon">🗺️</span><div class="avatar-name">Wanderer</div><div class="avatar-bonus">+Movement bonus. Explore faster, discover more eras.</div></div>
+      <div class="avatar-card reveal"><span class="avatar-icon">⚒️</span><div class="avatar-name">Toolmaker</div><div class="avatar-bonus">+Innovation bonus. Build workshops and unlock advanced tech.</div></div>
+      <div class="avatar-card reveal"><span class="avatar-icon">🏛️</span><div class="avatar-name">Settler</div><div class="avatar-bonus">+Stability bonus. Build strong cities and weather any crisis.</div></div>
+      <div class="avatar-card reveal"><span class="avatar-icon">📚</span><div class="avatar-name">Thinker</div><div class="avatar-bonus">+Knowledge bonus. Answer correctly for extra resources and points.</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>◆ ◆ ◆</span></div>
+
+<!-- SHOP -->
+<section class="shop-section" id="shop">
+  <div class="container">
+    <span class="section-tag reveal">Get the Game</span>
+    <div class="product-grid">
+      <div class="product-frame reveal">
+        <img src="BharatVerse_Hero_Midnight_Indigo.png"
+             alt="BharatVerse Board Game"
+             style="width:100%;border-radius:8px;position:relative;z-index:1;"
+             onerror="this.style.display='none'">
+        <div class="product-placeholder" style="position:absolute;z-index:0;">BharatVerse<br>Board Game<br><br><span style="font-family:'Lato';font-size:.75rem;color:var(--muted);">Complete Edition</span></div>
+      </div>
+      <div class="reveal">
+        <span class="section-tag">Complete Edition</span>
+        <h2 class="section-title" style="font-size:1.9rem;">The Board Game</h2>
+        <div class="price">₹2,499 <small>+ shipping</small></div>
+        <ul class="features">
+          <li>100-space spiral board — Era 1 through India 2050</li>
+          <li>280+ cards across 8 card types</li>
+          <li>50 Era IV Knowledge Cards with QR codes</li>
+          <li>6 player civilization boards &amp; resource tokens</li>
+          <li>210 resource tokens — Grain, Gold, Stone, Iron &amp; more</li>
+          <li>4 unique player avatars &amp; civilization identities</li>
+          <li>Achievement, Risk &amp; 2050 Vision card systems</li>
+          <li>Lifetime access to all QR learning content</li>
+        </ul>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="#" class="btn-gold">Buy Now — ₹2,499</a>
+          <a href="#schools" class="btn-outline">School Pricing →</a>
+        </div>
+        <p style="margin-top:.9rem;font-size:.72rem;color:var(--muted);">Secure checkout via Razorpay · Ships across India · Global shipping available</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><span>◆ ◆ ◆</span></div>
+
+<!-- SCHOOLS -->
+<section class="schools-section" id="schools">
+  <div class="container" style="max-width:800px;">
+    <span class="section-tag reveal">For Schools</span>
+    <h2 class="section-title reveal">Bring History to Life<br>in Every Classroom</h2>
+    <p class="section-body reveal" style="margin:0 auto 0;">BharatVerse is designed with CBSE &amp; ICSE history curriculum in mind. Perfect for grades 6–10. Make history class the most anticipated period of the week.</p>
+    <div class="benefits-grid">
+      <div class="benefit-box reveal"><span class="benefit-icon">📖</span><div class="benefit-title">Curriculum Aligned</div><div class="benefit-desc">Covers Indian history from Indus Valley to Modern India — mapped to standard syllabi.</div></div>
+      <div class="benefit-box reveal"><span class="benefit-icon">🎯</span><div class="benefit-title">Active Learning</div><div class="benefit-desc">Strategy, ethics, and collaboration replace passive memorization with real engagement.</div></div>
+      <div class="benefit-box reveal"><span class="benefit-icon">📊</span><div class="benefit-title">QR Analytics</div><div class="benefit-desc">Track which topics students explore, how long they engage, and what they learn.</div></div>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#ed9e8e858282819ead8f858c9f8c999b889f9e88c38483" class="btn-gold reveal">Request School Pricing →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Bharat<span>Verse</span></div>
+      <div class="footer-tagline">Journey Through Time — A board game celebrating India's civilizational story from 75,000 BCE to 2050.</div>
+    </div>
+    <div class="footer-links">
+      <h4>Game</h4>
+      <ul>
+        <li>The Board</li><li>How to Play</li><li>Card System</li><li>QR Learning</li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Shop</h4>
+      <ul>
+        <li>Buy the Game</li><li>School Orders</li><li>Wholesale</li><li>Track Order</li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li>About</li><li>Contact</li><li>Press Kit</li><li>Careers</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 BharatVerse. All rights reserved.</p>
+    <p>Made with ♥ in India</p>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── STARFIELD ──
+(function(){
+  const cv=document.getElementById('stars'),ctx=cv.getContext('2d');
+  let stars=[];
+  function resize(){cv.width=innerWidth;cv.height=innerHeight;}
+  function init(){stars=[];for(let i=0;i<180;i++)stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.1,a:Math.random(),s:Math.random()*.0004+.0002,p:Math.random()*Math.PI*2});}
+  function draw(t){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    stars.forEach(s=>{
+      const a=s.a*(.5+.5*Math.sin(t*s.s*1000+s.p));
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(201,168,76,${a})`;ctx.fill();
+    });
+  }
+  let st=null;
+  function loop(t){if(!st)st=t;draw((t-st)/1000);requestAnimationFrame(loop);}
+  resize();init();
+  window.addEventListener('resize',()=>{resize();init();});
+  requestAnimationFrame(loop);
+})();
+
+// ── SCROLL REVEAL ──
+(function(){
+  const els=document.querySelectorAll('.reveal');
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);ob.unobserve(e.target);}});
+  },{threshold:.1});
+  els.forEach(el=>ob.observe(el));
+})();
+
+// ── NAVBAR ──
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.background=
+    scrollY>60?'rgba(6,13,26,.98)':'rgba(6,13,26,.92)';
+});
+
+// ── QR BOX ──
+(function(){
+  const box=document.getElementById('qrbox');
+  if(!box)return;
+  [1,1,1,1,1,1,0,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,0,1,0,0,1,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,1,1,0,1,1,0,1].forEach(on=>{

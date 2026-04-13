@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Era IV Knowledge Cards · BharatVerse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-lt:#F0D080;--gold-dk:#7A5A10;--midnight:#060D1A;--ivory:#F5F0E8;--muted:#A89070;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Lato',sans-serif;background:var(--midnight);color:var(--ivory);}
+.top-nav{background:rgba(6,13,26,.95);border-bottom:1px solid rgba(201,168,76,.15);padding:.8rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px);}
+.nav-logo{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold);text-decoration:none;}
+.nav-logo span{color:#C0392B;}
+.hero{padding:3rem 2rem;text-align:center;border-bottom:1px solid rgba(201,168,76,.1);background:linear-gradient(160deg,#0A1628,#060D1A);}
+.era-badge{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.3em;color:var(--gold-dk);border:1px solid rgba(201,168,76,.2);padding:.22rem .8rem;border-radius:2px;display:inline-block;margin-bottom:.8rem;}
+.hero h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.8rem,5vw,3rem);color:var(--gold-lt);margin-bottom:.6rem;}
+.hero p{color:rgba(245,240,232,.62);line-height:1.8;max-width:560px;margin:0 auto;}
+.filter-bar{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;padding:1.4rem 2rem;border-bottom:1px solid rgba(201,168,76,.08);}
+.filter-btn{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;padding:.35rem .9rem;border-radius:2px;border:1px solid rgba(201,168,76,.2);color:var(--muted);background:transparent;cursor:pointer;transition:all .2s;text-transform:uppercase;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--gold);color:var(--gold-lt);background:rgba(201,168,76,.08);}
+.grid{max-width:1100px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;}
+.card-link{text-decoration:none;}
+.card{border:1px solid rgba(201,168,76,.15);border-radius:5px;padding:1.2rem;background:linear-gradient(135deg,rgba(61,43,31,.3),rgba(10,22,40,.5));transition:transform .25s,border-color .25s,box-shadow .25s;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--accent-color,rgba(201,168,76,.4));}
+.card:hover{transform:translateY(-4px);border-color:rgba(201,168,76,.45);box-shadow:0 8px 30px rgba(0,0,0,.4);}
+.card-num{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:var(--gold-dk);margin-bottom:.35rem;}
+.card-topic{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;color:rgba(245,240,232,.4);margin-bottom:.5rem;text-transform:uppercase;}
+.card-title{font-family:'Cinzel',serif;font-size:.92rem;color:var(--gold-lt);line-height:1.4;margin-bottom:.55rem;}
+.card-q{font-size:.78rem;color:rgba(245,240,232,.5);line-height:1.6;margin-bottom:.6rem;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;}
+.card-answer{font-size:.72rem;color:#5DBE8A;}
+.card-arrow{font-size:.75rem;color:var(--gold-dk);}
+.footer{text-align:center;padding:2rem;border-top:1px solid rgba(201,168,76,.08);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;color:rgba(168,144,112,.45);}
+.footer a{color:var(--gold-dk);text-decoration:none;}
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a href="index.html" class="nav-logo">Bharat<span>Verse</span></a>
+  <span style="font-family:'Cinzel',serif;font-size:.7rem;color:var(--muted);">Era IV · 500–1300 CE</span>
+</nav>
+<div class="hero">
+  <span class="era-badge">Era IV · Temple, Trade &amp; Regional Powers · 500–1300 CE</span>
+  <h1>Knowledge Cards</h1>
+  <p>50 knowledge cards covering the greatest era of Indian civilisation. Tap any card to read the full learning page — or scan the QR code on your physical card.</p>
+</div>
+<div class="filter-bar" id="filters">
+  <button class="filter-btn active" onclick="filterCards('all',this)">All 50</button>
+  <button class="filter-btn" onclick="filterCards('Universities',this)">Universities</button>
+  <button class="filter-btn" onclick="filterCards('Trade',this)">Trade</button>
+  <button class="filter-btn" onclick="filterCards('Temples',this)">Temples</button>
+  <button class="filter-btn" onclick="filterCards('Kingdoms',this)">Kingdoms</button>
+  <button class="filter-btn" onclick="filterCards('Science',this)">Science</button>
+  <button class="filter-btn" onclick="filterCards('Society',this)">Society</button>
+</div>
+<div class="grid" id="card-grid">
+<a href="era4/nalanda-university.html" class="card-link">
+  <div class="card" data-topic="Universities & Education" style="--accent-color:#7040A060;">
+    <div class="card-num">Card 1 · Era IV</div>
+    <div class="card-topic">Universities & Education</div>
+    <div class="card-title">Nalanda University</div>
+    <div class="card-q">Nalanda was located in present-day:</div>
+    <div class="card-footer"><span class="card-answer">✓ Bihar</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/chola-navy.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 2 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Chola Naval Power</div>
+    <div class="card-q">The Cholas became powerful mainly due to control over:</div>
+    <div class="card-footer"><span class="card-answer">✓ Sea routes</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/brihadeeswara-temple.html" class="card-link">
+  <div class="card" data-topic="Temples & Architecture" style="--accent-color:#B0502060;">
+    <div class="card-num">Card 3 · Era IV</div>
+    <div class="card-topic">Temples & Architecture</div>
+    <div class="card-title">Brihadeeswara Temple</div>
+    <div class="card-q">Brihadeeswara Temple was built by which dynasty?</div>
+    <div class="card-footer"><span class="card-answer">✓ Cholas</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/history-of-zero.html" class="card-link">
+  <div class="card" data-topic="Science & Technology" style="--accent-color:#20806060;">
+    <div class="card-num">Card 4 · Era IV</div>
+    <div class="card-topic">Science & Technology</div>
+    <div class="card-title">History of Zero</div>
+    <div class="card-q">Which mathematical concept from India spread globally through trade?</div>
+    <div class="card-footer"><span class="card-answer">✓ Zero and decimal system</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/bhakti-movement.html" class="card-link">
+  <div class="card" data-topic="Society & Culture" style="--accent-color:#A0305060;">
+    <div class="card-num">Card 5 · Era IV</div>
+    <div class="card-topic">Society & Culture</div>
+    <div class="card-title">Bhakti Movement</div>
+    <div class="card-q">Early Bhakti saints like Alvars and Nayanars were mainly from:</div>
+    <div class="card-footer"><span class="card-answer">✓ Tamil Nadu</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/ajanta-caves.html" class="card-link">
+  <div class="card" data-topic="Temples & Architecture" style="--accent-color:#B0502060;">
+    <div class="card-num">Card 6 · Era IV</div>
+    <div class="card-topic">Temples & Architecture</div>
+    <div class="card-title">Ajanta Caves</div>
+    <div class="card-q">Ajanta caves are important because they contain:</div>
+    <div class="card-footer"><span class="card-answer">✓ Buddhist paintings</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/kailasa-temple.html" class="card-link">
+  <div class="card" data-topic="Temples & Architecture" style="--accent-color:#B0502060;">
+    <div class="card-num">Card 7 · Era IV</div>
+    <div class="card-topic">Temples & Architecture</div>
+    <div class="card-title">Kailasa Temple Ellora</div>
+    <div class="card-q">Kailasa temple at Ellora was built by:</div>
+    <div class="card-footer"><span class="card-answer">✓ Rashtrakutas</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/indian-ocean-trade.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 8 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Indian Ocean Trade</div>
+    <div class="card-q">Indian Ocean trade connected India with which regions?</div>
+    <div class="card-footer"><span class="card-answer">✓ Multiple regions across Asia and Africa</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/iron-pillar-delhi.html" class="card-link">
+  <div class="card" data-topic="Science & Technology" style="--accent-color:#20806060;">
+    <div class="card-num">Card 9 · Era IV</div>
+    <div class="card-topic">Science & Technology</div>
+    <div class="card-title">Iron Pillar of Delhi</div>
+    <div class="card-q">The Iron Pillar of Delhi shows advanced knowledge of:</div>
+    <div class="card-footer"><span class="card-answer">✓ Metallurgy</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/village-governance.html" class="card-link">
+  <div class="card" data-topic="Society & Culture" style="--accent-color:#A0305060;">
+    <div class="card-num">Card 10 · Era IV</div>
+    <div class="card-topic">Society & Culture</div>
+    <div class="card-title">Village Governance</div>
+    <div class="card-q">Village assemblies in South India were responsible for:</div>
+    <div class="card-footer"><span class="card-answer">✓ Local administration and justice</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/temple-architecture-regions.html" class="card-link">
+  <div class="card" data-topic="Temples & Architecture" style="--accent-color:#B0502060;">
+    <div class="card-num">Card 11 · Era IV</div>
+    <div class="card-topic">Temples & Architecture</div>
+    <div class="card-title">Temple Architecture Across Regions</div>
+    <div class="card-q">Match Temple to Region</div>
+    <div class="card-footer"><span class="card-answer">✓ All correct matches</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/regional-kingdoms.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 12 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">Regional Kingdoms of India</div>
+    <div class="card-q">Match Kingdom to Region</div>
+    <div class="card-footer"><span class="card-answer">✓ All correct matches</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/gujarat-trade-ports.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 14 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Gujarat Trade Ports</div>
+    <div class="card-q">Gujarat became wealthy in this period mainly because of:</div>
+    <div class="card-footer"><span class="card-answer">✓ Trade ports</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/pala-dynasty.html" class="card-link">
+  <div class="card" data-topic="Universities & Education" style="--accent-color:#7040A060;">
+    <div class="card-num">Card 15 · Era IV</div>
+    <div class="card-topic">Universities & Education</div>
+    <div class="card-title">Pala Dynasty</div>
+    <div class="card-q">The Pala dynasty is known for supporting:</div>
+    <div class="card-footer"><span class="card-answer">✓ Buddhist universities</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/ahom-kingdom.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 16 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">Ahom Kingdom</div>
+    <div class="card-q">The Ahom kingdom was located in which region?</div>
+    <div class="card-footer"><span class="card-answer">✓ Assam</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/tripartite-struggle.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 17 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">Tripartite Struggle</div>
+    <div class="card-q">The Tripartite struggle was mainly for control of which city?</div>
+    <div class="card-footer"><span class="card-answer">✓ Kannauj</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/konark-sun-temple.html" class="card-link">
+  <div class="card" data-topic="Temples & Architecture" style="--accent-color:#B0502060;">
+    <div class="card-num">Card 18 · Era IV</div>
+    <div class="card-topic">Temples & Architecture</div>
+    <div class="card-title">Konark Sun Temple</div>
+    <div class="card-q">Konark Sun Temple is located in which state?</div>
+    <div class="card-footer"><span class="card-answer">✓ Odisha</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/spice-trade.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 19 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Spice Trade</div>
+    <div class="card-q">Arab traders came to India mainly for which goods?</div>
+    <div class="card-footer"><span class="card-answer">✓ Spices</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/university-locations.html" class="card-link">
+  <div class="card" data-topic="Universities & Education" style="--accent-color:#7040A060;">
+    <div class="card-num">Card 20 · Era IV</div>
+    <div class="card-topic">Universities & Education</div>
+    <div class="card-title">Ancient Universities of India</div>
+    <div class="card-q">Match University to Location</div>
+    <div class="card-footer"><span class="card-answer">✓ All correct matches</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/king-lalitaditya.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 21 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">King Lalitaditya of Kashmir</div>
+    <div class="card-q">King Lalitaditya is associated with which region?</div>
+    <div class="card-footer"><span class="card-answer">✓ Kashmir</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/king-bhoja.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 22 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">King Bhoja of Malwa</div>
+    <div class="card-q">King Bhoja ruled from which region?</div>
+    <div class="card-footer"><span class="card-answer">✓ Malwa (Central India)</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/fort-regions.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 23 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">Forts of Medieval India</div>
+    <div class="card-q">Match Fort to Region</div>
+    <div class="card-footer"><span class="card-answer">✓ All correct matches</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/temple-economy.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 24 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Temple Economy</div>
+    <div class="card-q">Temple towns became important economic centers because they:</div>
+    <div class="card-footer"><span class="card-answer">✓ Stored grain and gold</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/indian-numerals.html" class="card-link">
+  <div class="card" data-topic="Science & Technology" style="--accent-color:#20806060;">
+    <div class="card-num">Card 25 · Era IV</div>
+    <div class="card-topic">Science & Technology</div>
+    <div class="card-title">Indian Numerals</div>
+    <div class="card-q">Indian numerals spread to other countries mainly through:</div>
+    <div class="card-footer"><span class="card-answer">✓ Trade and scholars</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/golconda-diamonds.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 32 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Golconda Diamond Trade</div>
+    <div class="card-q">Golconda later became famous mainly for:</div>
+    <div class="card-footer"><span class="card-answer">✓ Diamond trade</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/tawang-monastery.html" class="card-link">
+  <div class="card" data-topic="Society & Culture" style="--accent-color:#A0305060;">
+    <div class="card-num">Card 37 · Era IV</div>
+    <div class="card-topic">Society & Culture</div>
+    <div class="card-title">Tawang Monastery</div>
+    <div class="card-q">Tawang monastery is located in:</div>
+    <div class="card-footer"><span class="card-answer">✓ Arunachal Pradesh</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/ujjain.html" class="card-link">
+  <div class="card" data-topic="Science & Technology" style="--accent-color:#20806060;">
+    <div class="card-num">Card 40 · Era IV</div>
+    <div class="card-topic">Science & Technology</div>
+    <div class="card-title">Ujjain — City of Learning</div>
+    <div class="card-q">Ujjain became an important city because it was:</div>
+    <div class="card-footer"><span class="card-answer">✓ A trade and astronomy center</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/horse-trade.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 42 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Horse Trade in Medieval India</div>
+    <div class="card-q">Why were horses imported into India during this period?</div>
+    <div class="card-footer"><span class="card-answer">✓ For cavalry in warfare</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/merchant-guilds.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 43 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Merchant Guilds (Shreni)</div>
+    <div class="card-q">Merchant guilds in ancient India were known as:</div>
+    <div class="card-footer"><span class="card-answer">✓ Shreni</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/land-grants.html" class="card-link">
+  <div class="card" data-topic="Society & Culture" style="--accent-color:#A0305060;">
+    <div class="card-num">Card 44 · Era IV</div>
+    <div class="card-topic">Society & Culture</div>
+    <div class="card-title">Land Grants to Temples</div>
+    <div class="card-q">Land grants given to temples were often known as:</div>
+    <div class="card-footer"><span class="card-answer">✓ Devadana</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/irrigation-tanks.html" class="card-link">
+  <div class="card" data-topic="Society & Culture" style="--accent-color:#A0305060;">
+    <div class="card-num">Card 45 · Era IV</div>
+    <div class="card-topic">Society & Culture</div>
+    <div class="card-title">Irrigation Tanks of South India</div>
+    <div class="card-q">Large irrigation tanks were mainly built in:</div>
+    <div class="card-footer"><span class="card-answer">✓ South India</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/stepwells.html" class="card-link">
+  <div class="card" data-topic="Temples & Architecture" style="--accent-color:#B0502060;">
+    <div class="card-num">Card 46 · Era IV</div>
+    <div class="card-topic">Temples & Architecture</div>
+    <div class="card-title">Stepwells of Gujarat and Rajasthan</div>
+    <div class="card-q">Stepwells were mainly built in which region?</div>
+    <div class="card-footer"><span class="card-answer">✓ Gujarat and Rajasthan</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/gujarat-textiles.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 47 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Gujarat Textile Trade</div>
+    <div class="card-q">Indian textiles were exported in large quantities mainly from which region?</div>
+    <div class="card-footer"><span class="card-answer">✓ Gujarat</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/silk-route-kashmir.html" class="card-link">
+  <div class="card" data-topic="Trade & Economy" style="--accent-color:#B0781860;">
+    <div class="card-num">Card 48 · Era IV</div>
+    <div class="card-topic">Trade & Economy</div>
+    <div class="card-title">Silk Route through Kashmir</div>
+    <div class="card-q">The Silk Route connected India to Central Asia through which region?</div>
+    <div class="card-footer"><span class="card-answer">✓ Kashmir and Ladakh</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/hill-forts.html" class="card-link">
+  <div class="card" data-topic="Kingdoms & Empires" style="--accent-color:#2060A060;">
+    <div class="card-num">Card 49 · Era IV</div>
+    <div class="card-topic">Kingdoms & Empires</div>
+    <div class="card-title">Hill Forts of India</div>
+    <div class="card-q">Why were many forts built on hills during this period?</div>
+    <div class="card-footer"><span class="card-answer">✓ For better view and defense</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+<a href="era4/cities-rivers-trade.html" class="card-link">
+  <div class="card" data-topic="Society & Culture" style="--accent-color:#A0305060;">
+    <div class="card-num">Card 50 · Era IV</div>
+    <div class="card-topic">Society & Culture</div>
+    <div class="card-title">Why Cities Grow Near Rivers</div>
+    <div class="card-q">Most large cities in this period developed near:</div>
+    <div class="card-footer"><span class="card-answer">✓ Rivers & Trade Routes</span><span class="card-arrow">Learn More →</span></div>
+  </div>
+</a>
+
+</div>
+<div class="footer"><a href="index.html">BharatVerse</a> · All 50 Era IV Knowledge Cards · QR Learning System</div>
+<script>
+function filterCards(topic, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.card').forEach(c => {
+    const ct = c.dataset.topic || '';
+    c.closest('.card-link').style.display = (topic==='all' || ct.includes(topic)) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
