@@ -316,6 +316,7 @@ footer{
 /* ── ANIMATIONS ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
@@ -355,7 +356,7 @@ footer{
 
   <!-- Board image hero -->
   <div class="hero-image-wrap reveal">
-    <img src="BharatVerse_Hero_Midnight_Indigo.png"
+    <img src="images/BharatVerse_Hero_Midnight_Indigo.png"
          alt="BharatVerse Board Game"
          onerror="this.style.display='none';document.getElementById('board-fallback').style.display='flex'">
     <div id="board-fallback" style="display:none;min-height:420px;border:1px solid rgba(201,168,76,.25);border-radius:12px;background:linear-gradient(135deg,#1A110A,#0A1628);align-items:center;justify-content:center;">
@@ -573,7 +574,7 @@ footer{
     <span class="section-tag reveal">Get the Game</span>
     <div class="product-grid">
       <div class="product-frame reveal">
-        <img src="BharatVerse_Hero_Midnight_Indigo.png"
+        <img src="images/BharatVerse_Hero_Midnight_Indigo.png"
              alt="BharatVerse Board Game"
              style="width:100%;border-radius:8px;position:relative;z-index:1;"
              onerror="this.style.display='none'">
@@ -616,7 +617,7 @@ footer{
       <div class="benefit-box reveal"><span class="benefit-icon">🎯</span><div class="benefit-title">Active Learning</div><div class="benefit-desc">Strategy, ethics, and collaboration replace passive memorization with real engagement.</div></div>
       <div class="benefit-box reveal"><span class="benefit-icon">📊</span><div class="benefit-title">QR Analytics</div><div class="benefit-desc">Track which topics students explore, how long they engage, and what they learn.</div></div>
     </div>
-    <a href="/cdn-cgi/l/email-protection#ed9e8e858282819ead8f858c9f8c999b889f9e88c38483" class="btn-gold reveal">Request School Pricing →</a>
+    <a href="/cdn-cgi/l/email-protection#186b7b707777746b587a70796a796c6e7d6a6b7d367176" class="btn-gold reveal">Request School Pricing →</a>
   </div>
 </section>
 
@@ -677,10 +678,16 @@ footer{
 // ── SCROLL REVEAL ──
 (function(){
   const els=document.querySelectorAll('.reveal');
-  const ob=new IntersectionObserver(entries=>{
-    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);ob.unobserve(e.target);}});
-  },{threshold:.1});
-  els.forEach(el=>ob.observe(el));
+  if('IntersectionObserver' in window){
+    const ob=new IntersectionObserver(entries=>{
+      entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);ob.unobserve(e.target);}});
+    },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
+    els.forEach(el=>ob.observe(el));
+  } else {
+    els.forEach(el=>el.classList.add('visible'));
+  }
+  // Fallback: make all visible after 2 seconds in case observer fails
+  setTimeout(()=>els.forEach(el=>el.classList.add('visible')),2000);
 })();
 
 // ── NAVBAR ──
