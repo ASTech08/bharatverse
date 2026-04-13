@@ -210,22 +210,90 @@ section{position:relative;z-index:1;padding:6rem 2rem;}
 
 /* ── CARDS SECTION ── */
 .cards-section{background:var(--midnight);}
-.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:1.2rem;margin-top:3rem;}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;margin-top:3rem;}
+
+/* Physical card look */
 .kcard{
-  border:1px solid rgba(201,168,76,.18);border-radius:4px;padding:1.2rem;
-  background:linear-gradient(135deg,rgba(61,43,31,.4),rgba(10,22,40,.6));
-  transition:transform .3s,border-color .3s;cursor:pointer;
+  position:relative;border-radius:8px;cursor:pointer;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s;
+  transform-style:preserve-3d;perspective:800px;
 }
-.kcard:hover{transform:scale(1.03) rotate(-.5deg);border-color:rgba(201,168,76,.5);}
-.kcard-era{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--gold-dk);text-transform:uppercase;margin-bottom:.45rem;}
-.kcard-q{font-family:'Cinzel',serif;font-size:.8rem;color:var(--gold-lt);line-height:1.5;margin-bottom:.7rem;}
-.kcard-opts{display:flex;flex-direction:column;gap:.28rem;}
-.kcard-opt{font-size:.72rem;color:rgba(245,240,232,.48);padding:.18rem .45rem;border-radius:2px;border:1px solid transparent;}
-.kcard-opt.ok{color:#5DBE8A;border-color:rgba(93,190,138,.3);background:rgba(93,190,138,.07);}
-.kcard-qr{
-  display:flex;align-items:center;gap:.45rem;margin-top:.7rem;padding-top:.7rem;
-  border-top:1px solid rgba(201,168,76,.1);font-size:.65rem;color:var(--muted);
-  font-family:'Cinzel',serif;letter-spacing:.08em;
+.kcard:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.kcard-inner{
+  border:1px solid rgba(201,168,76,.25);border-radius:8px;overflow:hidden;
+  background:linear-gradient(160deg,#1A110A 0%,#0D1420 100%);
+  box-shadow:0 4px 24px rgba(0,0,0,.4),inset 0 1px 0 rgba(201,168,76,.15);
+}
+/* Card top colour strip */
+.kcard-strip{height:5px;width:100%;}
+.strip-purple{background:linear-gradient(to right,#5A2A8A,#9A50D0);}
+.strip-amber{background:linear-gradient(to right,#8A5A10,#D4A030);}
+.strip-red{background:linear-gradient(to right,#8A2020,#D04040);}
+.strip-teal{background:linear-gradient(to right,#106A5A,#20A880);}
+.kcard-body{padding:1.2rem 1rem 1rem;}
+/* Era badge */
+.kcard-era{
+  display:inline-block;font-family:'Cinzel',serif;font-size:.55rem;
+  letter-spacing:.18em;text-transform:uppercase;margin-bottom:.7rem;
+  padding:.2rem .6rem;border-radius:2px;border:1px solid;
+}
+.era-purple{color:#B080E0;border-color:rgba(176,128,224,.3);background:rgba(176,128,224,.08);}
+.era-amber{color:#C9A84C;border-color:rgba(201,168,76,.3);background:rgba(201,168,76,.08);}
+.era-red{color:#E06060;border-color:rgba(224,96,96,.3);background:rgba(224,96,96,.08);}
+.era-teal{color:#40C0A0;border-color:rgba(64,192,160,.3);background:rgba(64,192,160,.08);}
+/* Card number */
+.kcard-num{
+  font-family:'Cinzel Decorative',serif;font-size:.55rem;color:rgba(245,240,232,.2);
+  float:right;margin-top:.1rem;
+}
+/* Topic icon area */
+.kcard-icon{
+  width:52px;height:52px;border-radius:50%;margin:0.2rem auto 0.9rem;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  border:1px solid rgba(201,168,76,.2);background:rgba(201,168,76,.05);
+}
+/* Card title */
+.kcard-title{
+  font-family:'Cinzel',serif;font-size:.88rem;color:var(--gold-lt);
+  line-height:1.4;text-align:center;margin-bottom:.5rem;
+}
+.kcard-topic{
+  font-size:.72rem;color:rgba(245,240,232,.45);text-align:center;
+  line-height:1.5;margin-bottom:.9rem;font-style:italic;
+}
+/* QR bottom */
+.kcard-footer{
+  border-top:1px solid rgba(201,168,76,.1);padding:.7rem 1rem .8rem;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.2);
+}
+.kcard-qr-label{
+  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;
+  color:var(--muted);display:flex;align-items:center;gap:.4rem;
+}
+.qr-icon{
+  width:28px;height:28px;background:white;border-radius:3px;
+  display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);
+  gap:1px;padding:3px;flex-shrink:0;
+}
+.qr-icon div{background:#000;border-radius:.5px;}
+/* Hover reveal hint */
+.kcard-scan-hint{
+  position:absolute;inset:0;border-radius:8px;
+  background:linear-gradient(135deg,rgba(201,168,76,.92),rgba(139,101,20,.95));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.5rem;opacity:0;transition:opacity .25s;pointer-events:none;
+}
+.kcard:hover .kcard-scan-hint{opacity:1;}
+.kcard-scan-hint span{font-family:'Cinzel',serif;font-size:.85rem;color:var(--midnight);font-weight:700;letter-spacing:.1em;}
+.kcard-scan-hint small{font-size:.72rem;color:rgba(6,13,26,.7);font-family:'Cinzel',serif;}
+
+/* Card count badge */
+.cards-count{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;
+  color:var(--gold-dk);border:1px solid rgba(201,168,76,.2);
+  padding:.3rem .9rem;border-radius:2px;margin-bottom:1rem;
 }
 
 /* ── AVATARS ── */
@@ -490,53 +558,111 @@ footer{
 <section class="cards-section" id="cards">
   <div class="container">
     <span class="section-tag reveal">Knowledge System</span>
-    <h2 class="section-title reveal">Every Card, a Window to History</h2>
-    <p class="section-body reveal">50 Era IV knowledge cards. Each with a question, explanation, and a QR code linking to a full multimedia learning page — maps, timelines, videos, and more.</p>
+    <h2 class="section-title reveal">50 Knowledge Cards</h2>
+    <p class="section-body reveal">Each physical card has a QR code on the back. Scan it after playing to explore the full story — maps, timelines, key facts, and videos. The questions stay secret until you play!</p>
+    <div class="cards-count">50 Knowledge Cards · Era IV · 500–1300 CE</div>
     <div class="cards-grid">
+
+      <!-- Card 1 -->
       <div class="kcard reveal">
-        <div class="kcard-era">Era IV · Universities</div>
-        <div class="kcard-q">Nalanda University was located in which present-day state?</div>
-        <div class="kcard-opts">
-          <div class="kcard-opt">A. Uttar Pradesh</div>
-          <div class="kcard-opt ok">B. Bihar ✓</div>
-          <div class="kcard-opt">C. West Bengal</div>
-          <div class="kcard-opt">D. Odisha</div>
+        <div class="kcard-inner">
+          <div class="kcard-strip strip-purple"></div>
+          <div class="kcard-body">
+            <span class="kcard-era era-purple">Universities &amp; Education</span>
+            <span class="kcard-num">01</span>
+            <div class="kcard-icon">🏛️</div>
+            <div class="kcard-title">Nalanda University</div>
+            <div class="kcard-topic">World's first residential university · Bihar · 5th century CE</div>
+          </div>
+          <div class="kcard-footer">
+            <div class="kcard-qr-label">
+              <div class="qr-icon" id="qr1"></div>
+              Scan to Learn
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold-dk);">Era IV →</span>
+          </div>
         </div>
-        <div class="kcard-qr">📱 Scan QR · Nalanda University</div>
+        <div class="kcard-scan-hint">
+          <span>📱 Scan QR Code</span>
+          <small>on your physical card</small>
+        </div>
       </div>
+
+      <!-- Card 2 -->
       <div class="kcard reveal">
-        <div class="kcard-era">Era IV · Naval Power</div>
-        <div class="kcard-q">The Cholas became powerful mainly due to control over:</div>
-        <div class="kcard-opts">
-          <div class="kcard-opt">A. Mountain passes</div>
-          <div class="kcard-opt">B. River valleys</div>
-          <div class="kcard-opt ok">C. Sea routes ✓</div>
-          <div class="kcard-opt">D. Desert routes</div>
+        <div class="kcard-inner">
+          <div class="kcard-strip strip-amber"></div>
+          <div class="kcard-body">
+            <span class="kcard-era era-amber">Trade &amp; Economy</span>
+            <span class="kcard-num">02</span>
+            <div class="kcard-icon">⚓</div>
+            <div class="kcard-title">Chola Naval Power</div>
+            <div class="kcard-topic">Masters of the Indian Ocean · 9th–13th century CE</div>
+          </div>
+          <div class="kcard-footer">
+            <div class="kcard-qr-label">
+              <div class="qr-icon" id="qr2"></div>
+              Scan to Learn
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold-dk);">Era IV →</span>
+          </div>
         </div>
-        <div class="kcard-qr">📱 Scan QR · Chola Navy</div>
+        <div class="kcard-scan-hint">
+          <span>📱 Scan QR Code</span>
+          <small>on your physical card</small>
+        </div>
       </div>
+
+      <!-- Card 3 -->
       <div class="kcard reveal">
-        <div class="kcard-era">Era IV · Architecture</div>
-        <div class="kcard-q">Kailasa Temple at Ellora was carved from a single rock by:</div>
-        <div class="kcard-opts">
-          <div class="kcard-opt">A. Cholas</div>
-          <div class="kcard-opt ok">B. Rashtrakutas ✓</div>
-          <div class="kcard-opt">C. Palas</div>
-          <div class="kcard-opt">D. Tomaras</div>
+        <div class="kcard-inner">
+          <div class="kcard-strip strip-red"></div>
+          <div class="kcard-body">
+            <span class="kcard-era era-red">Temples &amp; Architecture</span>
+            <span class="kcard-num">07</span>
+            <div class="kcard-icon">🪨</div>
+            <div class="kcard-title">Kailasa Temple</div>
+            <div class="kcard-topic">World's largest monolithic rock-cut structure · Ellora</div>
+          </div>
+          <div class="kcard-footer">
+            <div class="kcard-qr-label">
+              <div class="qr-icon" id="qr3"></div>
+              Scan to Learn
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold-dk);">Era IV →</span>
+          </div>
         </div>
-        <div class="kcard-qr">📱 Scan QR · Ellora Caves</div>
+        <div class="kcard-scan-hint">
+          <span>📱 Scan QR Code</span>
+          <small>on your physical card</small>
+        </div>
       </div>
+
+      <!-- Card 4 -->
       <div class="kcard reveal">
-        <div class="kcard-era">Era IV · Science</div>
-        <div class="kcard-q">Which mathematical concept from India spread globally through trade?</div>
-        <div class="kcard-opts">
-          <div class="kcard-opt">A. Fractions</div>
-          <div class="kcard-opt ok">B. Zero &amp; Decimal System ✓</div>
-          <div class="kcard-opt">C. Algebra</div>
-          <div class="kcard-opt">D. Geometry</div>
+        <div class="kcard-inner">
+          <div class="kcard-strip strip-teal"></div>
+          <div class="kcard-body">
+            <span class="kcard-era era-teal">Science &amp; Technology</span>
+            <span class="kcard-num">04</span>
+            <div class="kcard-icon">🔢</div>
+            <div class="kcard-title">History of Zero</div>
+            <div class="kcard-topic">India's greatest gift to global mathematics · 7th century CE</div>
+          </div>
+          <div class="kcard-footer">
+            <div class="kcard-qr-label">
+              <div class="qr-icon" id="qr4"></div>
+              Scan to Learn
+            </div>
+            <span style="font-family:'Cinzel',serif;font-size:.6rem;color:var(--gold-dk);">Era IV →</span>
+          </div>
         </div>
-        <div class="kcard-qr">📱 Scan QR · History of Zero</div>
+        <div class="kcard-scan-hint">
+          <span>📱 Scan QR Code</span>
+          <small>on your physical card</small>
+        </div>
       </div>
+
     </div>
 
     <div class="qr-demo reveal">
