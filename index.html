@@ -314,9 +314,8 @@ footer{
 .footer-bottom p{font-size:.72rem;color:rgba(168,144,112,.5);font-family:'Cinzel',serif;letter-spacing:.05em;}
 
 /* ── ANIMATIONS ── */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;}}
+.reveal{opacity:1 !important;transform:none !important;}
+.reveal.visible{opacity:1 !important;transform:none !important;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
 @media(max-width:768px){
   section{padding:4rem 1.5rem;}
@@ -617,7 +616,7 @@ footer{
       <div class="benefit-box reveal"><span class="benefit-icon">🎯</span><div class="benefit-title">Active Learning</div><div class="benefit-desc">Strategy, ethics, and collaboration replace passive memorization with real engagement.</div></div>
       <div class="benefit-box reveal"><span class="benefit-icon">📊</span><div class="benefit-title">QR Analytics</div><div class="benefit-desc">Track which topics students explore, how long they engage, and what they learn.</div></div>
     </div>
-    <a href="/cdn-cgi/l/email-protection#186b7b707777746b587a70796a796c6e7d6a6b7d367176" class="btn-gold reveal">Request School Pricing →</a>
+    <a href="/cdn-cgi/l/email-protection#4734242f28282b3407252f263526333122353422692e29" class="btn-gold reveal">Request School Pricing →</a>
   </div>
 </section>
 
@@ -653,7 +652,7 @@ footer{
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ── STARFIELD ──
 (function(){
   const cv=document.getElementById('stars'),ctx=cv.getContext('2d');
@@ -678,16 +677,10 @@ footer{
 // ── SCROLL REVEAL ──
 (function(){
   const els=document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    const ob=new IntersectionObserver(entries=>{
-      entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);ob.unobserve(e.target);}});
-    },{threshold:0.05,rootMargin:'0px 0px -20px 0px'});
-    els.forEach(el=>ob.observe(el));
-  } else {
-    els.forEach(el=>el.classList.add('visible'));
-  }
-  // Fallback: make all visible after 2 seconds in case observer fails
-  setTimeout(()=>els.forEach(el=>el.classList.add('visible')),2000);
+  const ob=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*55);ob.unobserve(e.target);}});
+  },{threshold:.1});
+  els.forEach(el=>ob.observe(el));
 })();
 
 // ── NAVBAR ──
